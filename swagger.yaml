@@ -1,0 +1,181 @@
+swagger: '2.0'
+info:
+  title: Magic Refridgerator API
+  description: 'Big Data and Cloud Computing Final Project.'
+  version: 1.0.0
+schemes:
+  - https
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /signup:
+    post:
+      operationId: Signup
+      summary: Signup
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Signup'
+      responses:
+        '200':
+          description: Success
+        '403':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /user:
+    get:
+      operationId: getUser
+      summary: Show User Information
+      responses:
+        '200':
+          description: Success
+        '403':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      operationId: Login
+      summary: Logins in User
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Login'
+      responses:
+        '200':
+          description: Success
+        '403':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /ingridient:
+    get:
+      operationId: getIngridients
+      summary: Get ingridients for the user
+      responses:
+        '200':
+          description: Success
+        '403':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      operationId: postIngridients
+      summary: Get ingridients for the user
+      consumes:
+         - multipart/form-data
+      parameters:
+         - in: formData
+           name: upfile
+           type: file
+           description: The file to upload.
+      responses:
+        '200':
+          description: Success
+        '403':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /recipe:
+    get:
+      operationId: getRecipes
+      summary: Get lists of recipes for user
+      responses:
+        '200':
+          description: Success
+        '403':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /recipedetail:
+    get:
+      operationId: getRecipeDetail
+      summary: Get Recipe details for selected recipe
+      responses:
+        '200':
+          description: Success
+        '403':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+definitions:
+  Signup:
+    type: object
+    properties:
+      id:
+        type: string
+      password:
+        type: string
+      name:
+        type: string
+      email:
+        type: string
+      phone:
+        type: string
+      foods:
+        type: array
+        items:
+          type: string
+      allergies:
+        type: array
+        items:
+          type: string
+      timestamp:
+        type: string
+        format: datetime
+  Login:
+    type: object
+    properties:
+      id:
+        type: string
+      password:
+        type: string
+      timestamp:
+        type: string
+        format: datetime
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
